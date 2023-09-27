@@ -43,17 +43,42 @@ public class MainSistema {
 
 			}
 			case 3: {
-				System.out.println("Digite o id do Produto que deseja excluir:");
-
+				long idProduto = Long.valueOf(sc.nextLong());
+				System.out.println("VOCÊ TEM CERTEZA QUE QUER APAGAR " + idProduto + "?");
+				System.out.println("[S] Sim");
+				System.out.println("[N] Não");
+				String certeza = String.valueOf(sc.nextLine());
+				while (certeza != "S" && certeza != "N") {
+					System.out.println("Resposta inválida. Tente novamente");
+					certeza = String.valueOf(sc.nextLine());
+				}
+				if (certeza == "S")
+					excluir();
+				else
+					break;
 			}
 			case 4: {
-				// Saida de dados (output)
-				System.out.println("Listagem de pessoas cadastradas: ");
-
-			 }
-
+				listagem();
+				break;
 			}
+			} // fim do switch
 
+		}
+		sc.close();
+	}// fim do main
+
+	// EXCLUIR
+	public static void excluir(long idProduto) {
+		for (Produto produto : produtos) {
+			if (produto.getId() == idProduto) {
+				produtos.remove(produto);
+				System.out.println("Processo realizado com sucesso!");
+				break;
+			} else {
+				System.out.println("Ocorreu um erro. Verifique se o produto existe e tente novamente.");
+				break;
+			}
+				
 		}
 		sc.close();
 
@@ -62,6 +87,7 @@ public class MainSistema {
 	public static void editar() {
 		
 	}
+    //CADASTRAR
 	public static void cadastrar() {
 		
 		for (Produto produto : produtos) {
@@ -73,4 +99,16 @@ public class MainSistema {
 	}
 	
 
+	// LISTAGEM
+	public static void listagem() {
+		System.out.println("Listagem dos produtos cadastrados: ");
+		for (Produto produto : produtos) {
+			System.out.println("Nome: " + produto.getNome());
+			System.out.println("Id: " + produto.getId());
+			System.out.println("Marca: " + produto.getMarca());
+			System.out.println("Preço: " + produto.getPreco());
+			System.out.println("Quantidade em estoque: " + produto.getQtdEstoque());
+			System.out.println("------");
+		}
+	}
 }
