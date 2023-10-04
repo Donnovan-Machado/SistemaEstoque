@@ -1,10 +1,8 @@
 package pacote;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainSistema {
-
 	public static void main(String[] args) {
 
 		Integer opcaoSelecionada = Integer.MAX_VALUE;
@@ -24,6 +22,7 @@ public class MainSistema {
 
 			switch (opcaoSelecionada) {
 			case 0: {
+				sc.close();
 				break;
 			}
 			case 1: {
@@ -42,6 +41,7 @@ public class MainSistema {
 
 			}
 			case 3: {
+				System.out.println("Digite o ID do produto a ser editado:");
 				long idProduto = Long.valueOf(sc.nextLong());
 				System.out.println("VOCÊ TEM CERTEZA QUE QUER APAGAR " + idProduto + "?");
 				System.out.println("[S] Sim");
@@ -56,6 +56,8 @@ public class MainSistema {
 					excluir(produtos, idProduto);
 				else
 					break;
+				else
+					System.out.println("Resposta inválida. Tente novamente");
 			}
 			case 4: {
 				listagem(produtos);
@@ -89,6 +91,7 @@ public class MainSistema {
 		}
 		sc.close();
 	}
+	}// fim do main
 
 	// EDITAR
 	public static void editar(ArrayList<Produto> produtos) {
@@ -100,6 +103,8 @@ public class MainSistema {
 		Integer campoNumber = Integer.valueOf(campo);
 		Float campoNumberF = Float.valueOf(campo);
 
+	// EXCLUIR
+	public static void excluir(ArrayList<Produto> produtos, long idProduto) {
 		for (Produto produto : produtos) {
 			
 			if (campo.toLowerCase() == produto.getNome()) {
