@@ -1,6 +1,7 @@
 package pacote;
 
 public class Produto {
+	
 	private Long id;
 	private String nome;
 	private String marca;

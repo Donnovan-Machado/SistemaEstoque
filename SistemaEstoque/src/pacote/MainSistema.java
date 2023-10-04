@@ -1,10 +1,8 @@
 package pacote;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainSistema {
-
 	public static void main(String[] args) {
 
 		Integer opcaoSelecionada = Integer.MAX_VALUE;
@@ -24,6 +22,7 @@ public class MainSistema {
 
 			switch (opcaoSelecionada) {
 			case 0: {
+				sc.close();
 				break;
 			}
 			case 1: {
@@ -39,36 +38,35 @@ public class MainSistema {
 				}
 			}
 			case 2: {
-				// cadastrar();
+				cadastrar(produtos);
 
 			}
 			case 3: {
+				System.out.println("Digite o ID do produto a ser editado:");
 				long idProduto = Long.valueOf(sc.nextLong());
 				System.out.println("VOCÊ TEM CERTEZA QUE QUER APAGAR " + idProduto + "?");
 				System.out.println("[S] Sim");
 				System.out.println("[N] Não");
-				String certeza = String.valueOf(sc.nextLine());
-				while (certeza != "S" && certeza != "N") {
-					System.out.println("Resposta inválida. Tente novamente");
-					certeza = String.valueOf(sc.nextLine());
-				}
-				if (certeza == "S")
-					excluir();
-				else
+				sc.nextLine();
+				String certeza = sc.nextLine();
+				if (certeza.equals("S"))
+					excluir(produtos, idProduto);
+				else if(certeza.equals("N"))
 					break;
+				else
+					System.out.println("Resposta inválida. Tente novamente");
 			}
 			case 4: {
-				listagem();
+				listagem(produtos);
 				break;
 			}
 			} // fim do switch
 
 		}
-		sc.close();
 	}// fim do main
 
 	// EXCLUIR
-	public static void excluir(long idProduto) {
+	public static void excluir(ArrayList<Produto> produtos, long idProduto) {
 		for (Produto produto : produtos) {
 			if (produto.getId() == idProduto) {
 				produtos.remove(produto);
@@ -78,18 +76,16 @@ public class MainSistema {
 				System.out.println("Ocorreu um erro. Verifique se o produto existe e tente novamente.");
 				break;
 			}
-				
 		}
-		sc.close();
+	}
+
+	public static void editar(ArrayList<Produto> produtos) {
 
 	}
-	
-	public static void editar() {
-		
-	}
-    //CADASTRAR
-	public static void cadastrar() {
-		
+
+	// CADASTRAR
+	public static void cadastrar(ArrayList<Produto> produtos) {
+
 		for (Produto produto : produtos) {
 			System.out.println("Nome: " + produto.getNome());
 			System.out.println("Marca: " + produto.getNome());
@@ -97,10 +93,9 @@ public class MainSistema {
 			System.out.println("Quantidade de Estoque: " + produto.getNome());
 		}
 	}
-	
 
 	// LISTAGEM
-	public static void listagem() {
+	public static void listagem(ArrayList<Produto> produtos) {
 		System.out.println("Listagem dos produtos cadastrados: ");
 		for (Produto produto : produtos) {
 			System.out.println("Nome: " + produto.getNome());
