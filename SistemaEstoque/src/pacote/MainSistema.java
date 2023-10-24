@@ -73,7 +73,7 @@ public class MainSistema {
 		}
 		// fim while
 		sc.close();
-	}// fim do main
+}// end do main
 
 	// CADASTRAR
 	private static long contador = 0;
