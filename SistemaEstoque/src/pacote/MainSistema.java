@@ -35,7 +35,7 @@ public class MainSistema {
 				break;
 			}
 			case 1: {
-				System.out.println("sada");
+				System.out.println("Cadastro");
 				cadastrar();
 				break;
 			}
@@ -57,6 +57,7 @@ public class MainSistema {
 					certeza = certeza.toUpperCase();
 
 					if (certeza.equals("S")) {
+						listagem();
 						excluir(idProduto);
 						break;
 					} else {
@@ -113,7 +114,6 @@ public class MainSistema {
 	// EDITAR
 	public static void editar() {
 		Integer campoSelecionado = Integer.MAX_VALUE;
-		String campo;
 		listagem();
 		
 		System.out.println("Digite o id do Produto que deseja Editar:");
@@ -139,20 +139,26 @@ public class MainSistema {
 					case 1://marca
 					{
 						String marca;
+						System.out.println("Qual será o novo nome da marca? ");
 						marca = sc.nextLine();
 						produto.setMarca(marca);
+						break;
 					}
 					case 2:
 					{
 						Float preco;
+						System.out.println("Qual será o novo Preço? ");
 						preco = Float.valueOf(sc.nextLine());
 						produto.setPreco(preco);
+						break;
 					}
 					case 3:
 					{
 						Integer qtdEstoque;
+						System.out.println("Qual será a nova quantidade no estoque? ");
 						qtdEstoque = Integer.valueOf(sc.nextLine());
 						produto.setQtdEstoque(qtdEstoque);
+						break;
 					}
 				
 				}//fim do switch
