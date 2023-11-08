@@ -1,7 +1,9 @@
-package pacote;
+package visao;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import modelo.Produto;
 
 public class MainSistema {
 

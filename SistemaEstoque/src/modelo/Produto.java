@@ -1,4 +1,4 @@
-package pacote;
+package modelo;
 
 public class Produto {
 
