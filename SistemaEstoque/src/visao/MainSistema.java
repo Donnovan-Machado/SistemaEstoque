@@ -3,6 +3,7 @@ package visao;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import controle.ProdutoDAO;
 import modelo.Produto;
 
 public class MainSistema {
@@ -76,7 +77,7 @@ public class MainSistema {
 		}
 		// fim while
 		sc.close();
-}// end do main
+	}// end do main
 
 	// CADASTRAR
 	private static long contador = 0;
@@ -105,9 +106,13 @@ public class MainSistema {
 		qtdEstoque = Integer.valueOf(sc.nextLine());
 		produto.setQtdEstoque(qtdEstoque);
 
-		produtos.add(produto);
-
-		System.out.println("Cadastrado com sucesso!");
+		ProdutoDAO dao = new ProdutoDAO();
+		boolean validacao = dao.inserir(produto);
+		if (validacao == true) {
+			System.out.println("Cadastrado com sucesso!");
+		} else {
+			System.out.println("Erro ao cadastrar.");
+		}
 
 	}// fim do cadastrar
 
@@ -117,7 +122,7 @@ public class MainSistema {
 	public static void editar() {
 		Integer campoSelecionado = Integer.MAX_VALUE;
 		listagem();
-		
+
 		System.out.println("Digite o id do Produto que deseja Editar:");
 		Long id = Long.valueOf(sc.nextLine());
 		for (Produto produto : produtos) {
@@ -127,43 +132,41 @@ public class MainSistema {
 				System.out.println("[1] MARCA");
 				System.out.println("[2] PREÇO");
 				System.out.println("[3] QUANTIDADE EM ESTOQUE");
-				campoSelecionado = Integer.valueOf(sc.nextLine()); 
+				campoSelecionado = Integer.valueOf(sc.nextLine());
 
 				switch (campoSelecionado) {
-					case 0: //nome
-					{
-						String nome;
-						System.out.println("Qual será o novo nome? ");
-						nome = sc.nextLine();
-						produto.setNome(nome);
-						break;
-					}
-					case 1://marca
-					{
-						String marca;
-						System.out.println("Qual será o novo nome da marca? ");
-						marca = sc.nextLine();
-						produto.setMarca(marca);
-						break;
-					}
-					case 2:
-					{
-						Float preco;
-						System.out.println("Qual será o novo Preço? ");
-						preco = Float.valueOf(sc.nextLine());
-						produto.setPreco(preco);
-						break;
-					}
-					case 3:
-					{
-						Integer qtdEstoque;
-						System.out.println("Qual será a nova quantidade no estoque? ");
-						qtdEstoque = Integer.valueOf(sc.nextLine());
-						produto.setQtdEstoque(qtdEstoque);
-						break;
-					}
-				
-				}//fim do switch
+				case 0: // nome
+				{
+					String nome;
+					System.out.println("Qual será o novo nome? ");
+					nome = sc.nextLine();
+					produto.setNome(nome);
+					break;
+				}
+				case 1:// marca
+				{
+					String marca;
+					System.out.println("Qual será o novo nome da marca? ");
+					marca = sc.nextLine();
+					produto.setMarca(marca);
+					break;
+				}
+				case 2: {
+					Float preco;
+					System.out.println("Qual será o novo Preço? ");
+					preco = Float.valueOf(sc.nextLine());
+					produto.setPreco(preco);
+					break;
+				}
+				case 3: {
+					Integer qtdEstoque;
+					System.out.println("Qual será a nova quantidade no estoque? ");
+					qtdEstoque = Integer.valueOf(sc.nextLine());
+					produto.setQtdEstoque(qtdEstoque);
+					break;
+				}
+
+				}// fim do switch
 			}
 		}
 
@@ -190,17 +193,8 @@ public class MainSistema {
 
 	// EXCLUIR
 	public static void excluir(long idProduto) {
-
-		for (Produto produto : produtos) {
-			if (produto.getId() == idProduto) {
-				produtos.remove(produto);
-				System.out.println("Processo realizado com sucesso!");
-				break;
-			} else {
-				System.out.println("Ocorreu um erro. Verifique se o produto existe e tente novamente.");
-				break;
-			}
-		}
+		ProdutoDAO dao = new ProdutoDAO();
+		dao.excluir(idProduto);
 
 	} // fim do excluir
 
